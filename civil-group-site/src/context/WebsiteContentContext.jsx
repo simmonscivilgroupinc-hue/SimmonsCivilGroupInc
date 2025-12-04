@@ -91,62 +91,64 @@ export const WebsiteContentProvider = ({ children }) => {
   };
 
   const commitToGitHub = async (newContent, commitMessage) => {
-    try {
-      const token = import.meta.env.VITE_GITHUB_TOKEN;
-      const owner = import.meta.env.VITE_GITHUB_OWNER;
-      const repo = import.meta.env.VITE_GITHUB_REPO;
-      const path = 'civil-group-site/public/content.json';
-      const branch = 'main';
+    const maxRetries = 3;
+    let attempt = 0;
 
-      // Debug logging
-      console.log('GitHub API Config:', {
-        owner,
-        repo,
-        path,
-        branch,
-        hasToken: !!token
-      });
+    while (attempt < maxRetries) {
+      try {
+        const token = import.meta.env.VITE_GITHUB_TOKEN;
+        const owner = import.meta.env.VITE_GITHUB_OWNER;
+        const repo = import.meta.env.VITE_GITHUB_REPO;
+        const path = 'civil-group-site/public/content.json';
+        const branch = 'main';
 
-      if (!token || !owner || !repo) {
-        throw new Error('Missing GitHub configuration. Please check environment variables.');
+        if (!token || !owner || !repo) {
+          throw new Error('Missing GitHub configuration. Please check environment variables.');
+        }
+
+        const octokit = new Octokit({
+          auth: token
+        });
+
+        // Get the latest file SHA right before committing
+        const { data: currentFile } = await octokit.repos.getContent({
+          owner,
+          repo,
+          path,
+          ref: branch
+        });
+
+        // Update the file with the latest SHA
+        await octokit.repos.createOrUpdateFileContents({
+          owner,
+          repo,
+          path,
+          message: commitMessage,
+          content: btoa(JSON.stringify(newContent, null, 2)),
+          sha: currentFile.sha,
+          branch
+        });
+
+        console.log('Commit successful!');
+        return { success: true };
+      } catch (error) {
+        attempt++;
+        console.error(`Commit attempt ${attempt} failed:`, error.message);
+
+        // If it's a SHA mismatch error and we have retries left, try again
+        if (error.message.includes('does not match') && attempt < maxRetries) {
+          console.log('SHA mismatch detected, retrying...');
+          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retry
+          continue;
+        }
+
+        // If it's a different error or we're out of retries, give up
+        console.error('Error committing to GitHub:', error);
+        return { success: false, error: error.message };
       }
-
-      const octokit = new Octokit({
-        auth: token
-      });
-
-      // Get the current file to get its SHA
-      console.log('Fetching current file from GitHub...');
-      const { data: currentFile } = await octokit.repos.getContent({
-        owner,
-        repo,
-        path,
-        ref: branch
-      });
-
-      console.log('File fetched, creating commit...');
-      // Update the file
-      await octokit.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path,
-        message: commitMessage,
-        content: btoa(JSON.stringify(newContent, null, 2)),
-        sha: currentFile.sha,
-        branch
-      });
-
-      console.log('Commit successful!');
-      return { success: true };
-    } catch (error) {
-      console.error('Error committing to GitHub:', error);
-      console.error('Error details:', {
-        message: error.message,
-        status: error.status,
-        response: error.response?.data
-      });
-      return { success: false, error: error.message };
     }
+
+    return { success: false, error: 'Failed after maximum retries' };
   };
 
   const updateContent = async (section, field, value) => {
