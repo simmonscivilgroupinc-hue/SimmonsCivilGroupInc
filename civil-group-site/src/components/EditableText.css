@@ -43,6 +43,8 @@
   border: 2px solid rgb(40, 56, 120);
   border-radius: 4px;
   width: 100%;
+  background: white !important;
+  color: #1a202c !important;
 }
 
 .editable-input:focus,
