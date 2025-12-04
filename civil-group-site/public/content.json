@@ -51,19 +51,9 @@
     "subtitle": "Take a look at some of our recent work",
     "images": [
       {
-        "id": 1,
-        "url": "https://images.unsplash.com/photo-1590496793907-892f56b5d9af?w=600&q=80",
-        "caption": "Road Construction"
-      },
-      {
         "id": 2,
         "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
         "caption": "Site Preparation"
-      },
-      {
-        "id": 3,
-        "url": "https://images.unsplash.com/photo-1597476470008-bd530f940c45?w=600&q=80",
-        "caption": "Heavy Equipment"
       },
       {
         "id": 4,
