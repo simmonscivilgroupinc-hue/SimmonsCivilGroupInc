@@ -29,11 +29,9 @@ const defaultContent = {
     title: 'Our Services',
     items: [
       { id: 1, title: 'Grading', description: 'Professional land grading and site preparation services' },
-      { id: 2, title: 'Paving', description: 'High-quality asphalt and concrete paving solutions' },
-      { id: 3, title: 'Concrete Work', description: 'Expert concrete installation and finishing' },
-      { id: 4, title: 'Water & Sewer', description: 'Complete water and sewer line installation and repair' },
-      { id: 5, title: 'Storm Drain', description: 'Storm drainage system design and installation' },
-      { id: 6, title: 'Utility Installation', description: 'Professional utility service installation' }
+      { id: 2, title: 'Water & Sewer', description: 'Complete water and sewer line installation and repair' },
+      { id: 3, title: 'Storm Drain', description: 'Storm drainage system design and installation' },
+      { id: 4, title: 'Utility Installation', description: 'Professional utility service installation' }
     ]
   },
   gallery: {
@@ -66,6 +64,8 @@ export const WebsiteContentProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [hasPendingChanges, setHasPendingChanges] = useState(false);
+  const [pendingContent, setPendingContent] = useState(null);
   const { isAdmin } = useAuth();
 
   useEffect(() => {
@@ -203,13 +203,12 @@ export const WebsiteContentProvider = ({ children }) => {
         newContent[section][field] = value;
       }
 
+      // Save locally only
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      // Commit to GitHub
-      const commitMessage = `Update ${section}.${field} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error updating content:', error);
       return { success: false, error: error.message };
@@ -226,11 +225,10 @@ export const WebsiteContentProvider = ({ children }) => {
       });
 
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      const commitMessage = `Add service: ${newService.title} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error adding service:', error);
       return { success: false, error: error.message };
@@ -240,15 +238,13 @@ export const WebsiteContentProvider = ({ children }) => {
   const deleteServiceItem = async (serviceId) => {
     try {
       const newContent = { ...content };
-      const service = newContent.services.items.find(s => s.id === serviceId);
       newContent.services.items = newContent.services.items.filter(s => s.id !== serviceId);
 
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      const commitMessage = `Delete service: ${service?.title || serviceId} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error deleting service:', error);
       return { success: false, error: error.message };
@@ -265,11 +261,10 @@ export const WebsiteContentProvider = ({ children }) => {
       });
 
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      const commitMessage = `Add gallery image: ${newImage.caption} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error adding gallery image:', error);
       return { success: false, error: error.message };
@@ -279,15 +274,13 @@ export const WebsiteContentProvider = ({ children }) => {
   const deleteGalleryImage = async (imageId) => {
     try {
       const newContent = { ...content };
-      const image = newContent.gallery.images.find(img => img.id === imageId);
       newContent.gallery.images = newContent.gallery.images.filter(img => img.id !== imageId);
 
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      const commitMessage = `Delete gallery image: ${image?.caption || imageId} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error deleting gallery image:', error);
       return { success: false, error: error.message };
@@ -306,15 +299,37 @@ export const WebsiteContentProvider = ({ children }) => {
       }
 
       setContent(newContent);
+      setPendingContent(newContent);
+      setHasPendingChanges(true);
 
-      const commitMessage = `Update gallery image: ${updates.caption || imageId} via admin panel`;
-      const result = await commitToGitHub(newContent, commitMessage);
-
-      return result;
+      return { success: true };
     } catch (error) {
       console.error('Error updating gallery image:', error);
       return { success: false, error: error.message };
     }
+  };
+
+  const publishChanges = async () => {
+    if (!hasPendingChanges || !pendingContent) {
+      return { success: false, error: 'No pending changes to publish' };
+    }
+
+    const commitMessage = `Publish changes via admin panel`;
+    const result = await commitToGitHub(pendingContent, commitMessage);
+
+    if (result.success) {
+      setHasPendingChanges(false);
+      setPendingContent(null);
+    }
+
+    return result;
+  };
+
+  const discardChanges = async () => {
+    // Reload content from server
+    await loadContent();
+    setHasPendingChanges(false);
+    setPendingContent(null);
   };
 
   const toggleEditMode = () => {
@@ -328,13 +343,16 @@ export const WebsiteContentProvider = ({ children }) => {
     loading,
     editMode,
     isSaving,
+    hasPendingChanges,
     toggleEditMode,
     updateContent,
     addServiceItem,
     deleteServiceItem,
     addGalleryImage,
     deleteGalleryImage,
-    updateGalleryImage
+    updateGalleryImage,
+    publishChanges,
+    discardChanges
   };
 
   return (

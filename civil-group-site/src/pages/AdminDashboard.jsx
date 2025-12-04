@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc, updateDoc, deleteDoc, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { useWebsiteContent } from '../context/WebsiteContentContext';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const { hasPendingChanges, publishChanges, discardChanges, isSaving } = useWebsiteContent();
+  const [isPublishing, setIsPublishing] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -59,6 +62,31 @@ const AdminDashboard = () => {
     setTimeout(() => setMessage({ type: '', text: '' }), 3000);
   };
 
+  const handlePublish = async () => {
+    if (!window.confirm('Publish all pending changes to the live site? This will deploy your changes in about 30 seconds.')) {
+      return;
+    }
+
+    setIsPublishing(true);
+    const result = await publishChanges();
+    setIsPublishing(false);
+
+    if (result.success) {
+      showMessage('success', 'Changes published successfully! Your site will update in ~30 seconds.');
+    } else {
+      showMessage('error', result.error || 'Failed to publish changes');
+    }
+  };
+
+  const handleDiscard = async () => {
+    if (!window.confirm('Discard all pending changes? This cannot be undone.')) {
+      return;
+    }
+
+    await discardChanges();
+    showMessage('success', 'All pending changes discarded');
+  };
+
   const formatDate = (timestamp) => {
     if (!timestamp) return 'N/A';
     try {
@@ -82,17 +110,45 @@ const AdminDashboard = () => {
     <div className="modern-admin-dashboard">
       <div className="dashboard-header">
         <div>
-          <h1>Contact Submissions</h1>
-          <p className="header-subtitle">Manage your website inquiries</p>
+          <h1>Admin Dashboard</h1>
+          <p className="header-subtitle">Manage your website content and inquiries</p>
         </div>
-        <div className="header-stats">
-          <div className="stat-card">
-            <span className="stat-number">{contacts.filter(c => c.status === 'new').length}</span>
-            <span className="stat-label">New</span>
+        <div className="header-actions">
+          {hasPendingChanges && (
+            <div className="pending-changes-banner">
+              <span className="pending-indicator">●</span>
+              <span>You have unpublished changes</span>
+            </div>
+          )}
+          <div className="header-buttons">
+            {hasPendingChanges && (
+              <>
+                <button
+                  onClick={handleDiscard}
+                  className="discard-btn"
+                  disabled={isPublishing || isSaving}
+                >
+                  Discard Changes
+                </button>
+                <button
+                  onClick={handlePublish}
+                  className="publish-btn"
+                  disabled={isPublishing || isSaving}
+                >
+                  {isPublishing ? 'Publishing...' : 'Publish to Live Site'}
+                </button>
+              </>
+            )}
           </div>
-          <div className="stat-card">
-            <span className="stat-number">{contacts.length}</span>
-            <span className="stat-label">Total</span>
+          <div className="header-stats">
+            <div className="stat-card">
+              <span className="stat-number">{contacts.filter(c => c.status === 'new').length}</span>
+              <span className="stat-label">New</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-number">{contacts.length}</span>
+              <span className="stat-label">Total</span>
+            </div>
           </div>
         </div>
       </div>
