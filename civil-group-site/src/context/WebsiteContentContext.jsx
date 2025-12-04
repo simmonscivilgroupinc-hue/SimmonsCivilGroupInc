@@ -92,16 +92,31 @@ export const WebsiteContentProvider = ({ children }) => {
 
   const commitToGitHub = async (newContent, commitMessage) => {
     try {
-      const octokit = new Octokit({
-        auth: import.meta.env.VITE_GITHUB_TOKEN
-      });
-
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
       const owner = import.meta.env.VITE_GITHUB_OWNER;
       const repo = import.meta.env.VITE_GITHUB_REPO;
       const path = 'civil-group-site/public/content.json';
       const branch = 'main';
 
+      // Debug logging
+      console.log('GitHub API Config:', {
+        owner,
+        repo,
+        path,
+        branch,
+        hasToken: !!token
+      });
+
+      if (!token || !owner || !repo) {
+        throw new Error('Missing GitHub configuration. Please check environment variables.');
+      }
+
+      const octokit = new Octokit({
+        auth: token
+      });
+
       // Get the current file to get its SHA
+      console.log('Fetching current file from GitHub...');
       const { data: currentFile } = await octokit.repos.getContent({
         owner,
         repo,
@@ -109,6 +124,7 @@ export const WebsiteContentProvider = ({ children }) => {
         ref: branch
       });
 
+      console.log('File fetched, creating commit...');
       // Update the file
       await octokit.repos.createOrUpdateFileContents({
         owner,
@@ -120,9 +136,15 @@ export const WebsiteContentProvider = ({ children }) => {
         branch
       });
 
+      console.log('Commit successful!');
       return { success: true };
     } catch (error) {
       console.error('Error committing to GitHub:', error);
+      console.error('Error details:', {
+        message: error.message,
+        status: error.status,
+        response: error.response?.data
+      });
       return { success: false, error: error.message };
     }
   };
