@@ -194,7 +194,7 @@ const ModernGallery = () => {
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}
-            slidesPerView={3}
+            slidesPerView={1}
             loop={true}
             loopedSlides={content.gallery.images.length}
             coverflowEffect={{
@@ -211,6 +211,35 @@ const ModernGallery = () => {
               disableOnInteraction: false,
             }}
             spaceBetween={0}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                coverflowEffect: {
+                  rotate: 20,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 1,
+                },
+              },
+              768: {
+                slidesPerView: 2,
+                coverflowEffect: {
+                  rotate: 25,
+                  stretch: 5,
+                  depth: 120,
+                  modifier: 1,
+                },
+              },
+              1024: {
+                slidesPerView: 3,
+                coverflowEffect: {
+                  rotate: 30,
+                  stretch: 10,
+                  depth: 150,
+                  modifier: 1,
+                },
+              },
+            }}
             className="gallery-swiper"
           >
             {content.gallery.images.map((image) => (

@@ -19,6 +19,19 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .gallery-container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-container {
+    padding: 0 0.5rem;
+  }
 }
 
 .gallery-header {
@@ -46,6 +59,8 @@
 
 .gallery-carousel-wrapper {
   margin-bottom: 30px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .gallery-swiper {
@@ -55,6 +70,13 @@
 .swiper-slide {
   width: 500px !important;
   height: 350px;
+}
+
+@media (max-width: 1024px) {
+  .swiper-slide {
+    width: 450px !important;
+    height: 320px;
+  }
 }
 
 .gallery-slide {
@@ -190,6 +212,17 @@
   background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
   width: 32px;
   border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .gallery-swiper .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+
+  .gallery-swiper .swiper-pagination-bullet-active {
+    width: 24px;
+  }
 }
 
 /* Premium Modal Styles */
@@ -401,8 +434,13 @@
   }
 
   .swiper-slide {
-    width: 85vw !important;
+    width: 90vw !important;
+    max-width: 400px !important;
     height: 280px;
+  }
+
+  .gallery-swiper .swiper-slide {
+    margin: 0 auto;
   }
 
   .gallery-slide {
@@ -431,13 +469,21 @@
 
   .gallery-swiper .swiper-button-next,
   .gallery-swiper .swiper-button-prev {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
   }
 
   .gallery-swiper .swiper-button-next:after,
   .gallery-swiper .swiper-button-prev:after {
-    font-size: 18px;
+    font-size: 20px;
+  }
+
+  .gallery-swiper .swiper-button-next {
+    right: 5px;
+  }
+
+  .gallery-swiper .swiper-button-prev {
+    left: 5px;
   }
 
   .add-image-btn {
@@ -480,7 +526,9 @@
   }
 
   .swiper-slide {
-    height: 220px;
+    width: 95vw !important;
+    max-width: 350px !important;
+    height: 240px;
   }
 
   .gallery-swiper {
@@ -489,13 +537,21 @@
 
   .gallery-swiper .swiper-button-next,
   .gallery-swiper .swiper-button-prev {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 
   .gallery-swiper .swiper-button-next:after,
   .gallery-swiper .swiper-button-prev:after {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .gallery-swiper .swiper-button-next {
+    right: 2px;
+  }
+
+  .gallery-swiper .swiper-button-prev {
+    left: 2px;
   }
 
   .premium-modal {
