@@ -145,6 +145,38 @@
   }
 }
 
+.publish-nav-btn {
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+  animation: pulse-publish 2s infinite;
+}
+
+.publish-nav-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+}
+
+.publish-nav-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes pulse-publish {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.7);
+  }
+}
+
 .admin-link {
   background: rgba(124, 179, 66, 0.1);
   color: #7CB342;

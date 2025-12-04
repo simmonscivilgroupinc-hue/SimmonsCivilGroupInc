@@ -8,13 +8,26 @@ import './ModernNavbar.css';
 const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAdmin, logout } = useAuth();
-  const { content, editMode, toggleEditMode } = useWebsiteContent();
+  const { content, editMode, toggleEditMode, hasPendingChanges, publishChanges, isSaving } = useWebsiteContent();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isPublishing, setIsPublishing] = useState(false);
 
   const handleLogout = async () => {
     await logout();
     navigate('/');
+  };
+
+  const handlePublish = async () => {
+    setIsPublishing(true);
+    const result = await publishChanges();
+    setIsPublishing(false);
+
+    if (result.success) {
+      alert('✅ Changes published successfully!\n\nYour site will update in about 30 seconds.');
+    } else {
+      alert('Failed to publish: ' + (result.error || 'Unknown error'));
+    }
   };
 
   const scrollToSection = (sectionId) => {
@@ -116,12 +129,24 @@ const ModernNavbar = () => {
           </button>
 
           {isAdmin && isHomePage && (
-            <button
-              onClick={toggleEditMode}
-              className={`edit-mode-toggle ${editMode ? 'active' : ''}`}
-            >
-              {editMode ? '✅ Edit Mode' : '✏️ Edit'}
-            </button>
+            <>
+              <button
+                onClick={toggleEditMode}
+                className={`edit-mode-toggle ${editMode ? 'active' : ''}`}
+              >
+                {editMode ? '✅ Edit Mode' : '✏️ Edit'}
+              </button>
+
+              {editMode && hasPendingChanges && (
+                <button
+                  onClick={handlePublish}
+                  className="publish-nav-btn"
+                  disabled={isPublishing || isSaving}
+                >
+                  {isPublishing ? '⏳ Publishing...' : '🚀 Publish Changes'}
+                </button>
+              )}
+            </>
           )}
 
           {isAdmin && (
