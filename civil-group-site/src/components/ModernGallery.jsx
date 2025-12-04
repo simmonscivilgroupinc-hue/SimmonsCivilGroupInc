@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { useWebsiteContent } from '../context/WebsiteContentContext';
 import EditableText from './EditableText';
@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
+import 'swiper/css/effect-creative';
 import './ModernGallery.css';
 
 const ModernGallery = () => {
@@ -190,53 +191,52 @@ const ModernGallery = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
-            effect="coverflow"
+            modules={[Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative]}
+            effect="slide"
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={1}
             loop={true}
-            loopedSlides={content.gallery.images.length}
-            coverflowEffect={{
-              rotate: 30,
-              stretch: 10,
-              depth: 150,
-              modifier: 1,
-              slideShadows: true,
+            loopAdditionalSlides={2}
+            watchSlidesProgress={true}
+            preloadImages={true}
+            lazy={{
+              loadPrevNext: true,
+              loadPrevNextAmount: 2,
             }}
-            pagination={{ clickable: true }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
             navigation={true}
             autoplay={{
               delay: 4000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
-            spaceBetween={0}
+            speed={600}
+            spaceBetween={20}
             breakpoints={{
               640: {
                 slidesPerView: 1,
-                coverflowEffect: {
-                  rotate: 20,
-                  stretch: 0,
-                  depth: 100,
-                  modifier: 1,
-                },
+                spaceBetween: 20,
+                effect: 'slide',
               },
               768: {
                 slidesPerView: 2,
-                coverflowEffect: {
-                  rotate: 25,
-                  stretch: 5,
-                  depth: 120,
-                  modifier: 1,
-                },
+                spaceBetween: 15,
+                effect: 'slide',
               },
               1024: {
                 slidesPerView: 3,
+                spaceBetween: 0,
+                effect: 'coverflow',
                 coverflowEffect: {
                   rotate: 30,
                   stretch: 10,
                   depth: 150,
                   modifier: 1,
+                  slideShadows: true,
                 },
               },
             }}
