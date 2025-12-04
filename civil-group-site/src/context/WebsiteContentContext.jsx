@@ -73,8 +73,8 @@ export const WebsiteContentProvider = ({ children }) => {
 
   const loadContent = async () => {
     try {
-      // Load content from content.json in public folder
-      const response = await fetch('/content.json');
+      // Load content from content.json in public folder with cache-busting
+      const response = await fetch(`/content.json?t=${Date.now()}`);
       if (response.ok) {
         const data = await response.json();
         setContent(data);
@@ -129,7 +129,12 @@ export const WebsiteContentProvider = ({ children }) => {
           branch
         });
 
-        console.log('Commit successful!');
+        console.log('Commit successful! Waiting for Vercel deployment...');
+
+        // Wait 3 seconds for Vercel to start deploying, then reload content
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        await loadContent();
+
         return { success: true };
       } catch (error) {
         attempt++;
