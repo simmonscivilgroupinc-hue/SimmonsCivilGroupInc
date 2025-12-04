@@ -65,6 +65,7 @@ export const WebsiteContentProvider = ({ children }) => {
   const [content, setContent] = useState(defaultContent);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const { isAdmin } = useAuth();
 
   useEffect(() => {
@@ -91,69 +92,99 @@ export const WebsiteContentProvider = ({ children }) => {
   };
 
   const commitToGitHub = async (newContent, commitMessage) => {
-    const maxRetries = 3;
-    let attempt = 0;
-
-    while (attempt < maxRetries) {
-      try {
-        const token = import.meta.env.VITE_GITHUB_TOKEN;
-        const owner = import.meta.env.VITE_GITHUB_OWNER;
-        const repo = import.meta.env.VITE_GITHUB_REPO;
-        const path = 'civil-group-site/public/content.json';
-        const branch = 'main';
-
-        if (!token || !owner || !repo) {
-          throw new Error('Missing GitHub configuration. Please check environment variables.');
-        }
-
-        const octokit = new Octokit({
-          auth: token
-        });
-
-        // Get the latest file SHA right before committing
-        const { data: currentFile } = await octokit.repos.getContent({
-          owner,
-          repo,
-          path,
-          ref: branch
-        });
-
-        // Update the file with the latest SHA
-        await octokit.repos.createOrUpdateFileContents({
-          owner,
-          repo,
-          path,
-          message: commitMessage,
-          content: btoa(JSON.stringify(newContent, null, 2)),
-          sha: currentFile.sha,
-          branch
-        });
-
-        console.log('Commit successful! Waiting for Vercel deployment...');
-
-        // Wait 3 seconds for Vercel to start deploying, then reload content
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        await loadContent();
-
-        return { success: true };
-      } catch (error) {
-        attempt++;
-        console.error(`Commit attempt ${attempt} failed:`, error.message);
-
-        // If it's a SHA mismatch error and we have retries left, try again
-        if (error.message.includes('does not match') && attempt < maxRetries) {
-          console.log('SHA mismatch detected, retrying...');
-          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retry
-          continue;
-        }
-
-        // If it's a different error or we're out of retries, give up
-        console.error('Error committing to GitHub:', error);
-        return { success: false, error: error.message };
-      }
+    // Check if another save is in progress
+    if (isSaving) {
+      return {
+        success: false,
+        error: 'Please wait until the previous change has finished deploying before making another edit.'
+      };
     }
 
-    return { success: false, error: 'Failed after maximum retries' };
+    setIsSaving(true);
+
+    try {
+      const maxRetries = 3;
+      let attempt = 0;
+
+      while (attempt < maxRetries) {
+        try {
+          const token = import.meta.env.VITE_GITHUB_TOKEN;
+          const owner = import.meta.env.VITE_GITHUB_OWNER;
+          const repo = import.meta.env.VITE_GITHUB_REPO;
+          const path = 'civil-group-site/public/content.json';
+          const branch = 'main';
+
+          if (!token || !owner || !repo) {
+            throw new Error('Missing GitHub configuration. Please check environment variables.');
+          }
+
+          const octokit = new Octokit({
+            auth: token
+          });
+
+          // Get the latest file SHA right before committing
+          const { data: currentFile } = await octokit.repos.getContent({
+            owner,
+            repo,
+            path,
+            ref: branch
+          });
+
+          // Update the file with the latest SHA
+          await octokit.repos.createOrUpdateFileContents({
+            owner,
+            repo,
+            path,
+            message: commitMessage,
+            content: btoa(JSON.stringify(newContent, null, 2)),
+            sha: currentFile.sha,
+            branch
+          });
+
+          console.log('Commit successful! Waiting for Vercel deployment...');
+
+          // Wait 5 seconds for Vercel to start deploying, then reload content
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          await loadContent();
+
+          setIsSaving(false);
+          return { success: true };
+        } catch (error) {
+          attempt++;
+          console.error(`Commit attempt ${attempt} failed:`, error.message);
+
+          // If it's a SHA mismatch error and we have retries left, try again
+          if (error.message.includes('does not match') && attempt < maxRetries) {
+            console.log('SHA mismatch detected, retrying...');
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds before retry
+            continue;
+          }
+
+          // If it's a different error or we're out of retries, give up
+          console.error('Error committing to GitHub:', error);
+          setIsSaving(false);
+
+          // Return user-friendly error message
+          if (error.message.includes('does not match')) {
+            return {
+              success: false,
+              error: 'Please wait until the previous change has finished deploying before making another edit.'
+            };
+          }
+
+          return { success: false, error: 'Failed to save changes. Please try again.' };
+        }
+      }
+
+      setIsSaving(false);
+      return {
+        success: false,
+        error: 'Please wait until the previous change has finished deploying before making another edit.'
+      };
+    } catch (error) {
+      setIsSaving(false);
+      return { success: false, error: 'Failed to save changes. Please try again.' };
+    }
   };
 
   const updateContent = async (section, field, value) => {
@@ -296,6 +327,7 @@ export const WebsiteContentProvider = ({ children }) => {
     content,
     loading,
     editMode,
+    isSaving,
     toggleEditMode,
     updateContent,
     addServiceItem,
