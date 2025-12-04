@@ -99,7 +99,7 @@ export const WebsiteContentProvider = ({ children }) => {
       const owner = import.meta.env.VITE_GITHUB_OWNER;
       const repo = import.meta.env.VITE_GITHUB_REPO;
       const path = 'civil-group-site/public/content.json';
-      const branch = 'master';
+      const branch = 'main';
 
       // Get the current file to get its SHA
       const { data: currentFile } = await octokit.repos.getContent({
