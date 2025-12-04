@@ -1,0 +1,145 @@
+.editable-image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.editable-image-wrapper.editable {
+  cursor: pointer;
+}
+
+.editable-image-wrapper.editable img {
+  transition: all 0.2s;
+}
+
+.editable-image-wrapper.editable:hover img {
+  opacity: 0.8;
+  border: 3px solid rgb(40, 56, 120);
+  border-radius: 4px;
+}
+
+.edit-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(40, 56, 120, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.editable-image-wrapper.editable:hover .edit-overlay {
+  opacity: 1;
+}
+
+.editable-image-editor {
+  background-color: white;
+  padding: 2rem;
+  border: 2px solid rgb(40, 56, 120);
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-method-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.upload-method-toggle button {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.upload-method-toggle button.active {
+  background-color: rgb(40, 56, 120);
+  color: white;
+  border-color: rgb(40, 56, 120);
+}
+
+.url-input-section,
+.file-upload-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.image-url-input,
+.file-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.save-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.current-image-preview {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.current-image-preview p {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.current-image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
