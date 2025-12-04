@@ -21,26 +21,16 @@
       },
       {
         "id": 2,
-        "title": "Paving",
-        "description": "High-quality asphalt and concrete paving solutions"
-      },
-      {
-        "id": 3,
-        "title": "Concrete Work",
-        "description": "Expert concrete installation and finishing"
-      },
-      {
-        "id": 4,
         "title": "Water & Sewer",
         "description": "Complete water and sewer line installation and repair"
       },
       {
-        "id": 5,
+        "id": 3,
         "title": "Storm Drain",
         "description": "Storm drainage system design and installation"
       },
       {
-        "id": 6,
+        "id": 4,
         "title": "Utility Installation",
         "description": "Professional utility service installation"
       }

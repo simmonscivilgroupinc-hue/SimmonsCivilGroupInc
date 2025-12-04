@@ -153,25 +153,6 @@ const ModernHome = () => {
           </motion.div>
         </div>
         <div className="hero-overlay"></div>
-
-        {/* Animated Construction Equipment */}
-        <motion.div
-          className="hero-equipment"
-          initial={{ x: -200, opacity: 0 }}
-          animate={{ x: 0, opacity: 0.6 }}
-          transition={{ duration: 2, delay: 1, type: "spring" }}
-          style={{ transform: `translateX(${scrollY * 0.2}px)` }}
-        >
-          <div className="digger">🚜</div>
-        </motion.div>
-        <motion.div
-          className="hero-crane"
-          initial={{ y: -200, opacity: 0 }}
-          animate={{ y: 0, opacity: 0.5 }}
-          transition={{ duration: 2, delay: 1.2, type: "spring" }}
-        >
-          <div className="crane">🏗️</div>
-        </motion.div>
       </EditableBackgroundImage>
 
       {/* About Section */}
