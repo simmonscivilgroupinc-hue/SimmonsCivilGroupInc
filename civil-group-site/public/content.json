@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Welcome to Simmons Civil Group Inc",
+    "title": "Welcome to Simmons Civil Group Inc!",
     "subtitle": "Quality Construction Services You Can Trust",
     "backgroundImage": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1920&q=80"
   },
@@ -14,24 +14,72 @@
   "services": {
     "title": "Our Services",
     "items": [
-      { "id": 1, "title": "Grading", "description": "Professional land grading and site preparation services" },
-      { "id": 2, "title": "Paving", "description": "High-quality asphalt and concrete paving solutions" },
-      { "id": 3, "title": "Concrete Work", "description": "Expert concrete installation and finishing" },
-      { "id": 4, "title": "Water & Sewer", "description": "Complete water and sewer line installation and repair" },
-      { "id": 5, "title": "Storm Drain", "description": "Storm drainage system design and installation" },
-      { "id": 6, "title": "Utility Installation", "description": "Professional utility service installation" }
+      {
+        "id": 1,
+        "title": "Grading",
+        "description": "Professional land grading and site preparation services"
+      },
+      {
+        "id": 2,
+        "title": "Paving",
+        "description": "High-quality asphalt and concrete paving solutions"
+      },
+      {
+        "id": 3,
+        "title": "Concrete Work",
+        "description": "Expert concrete installation and finishing"
+      },
+      {
+        "id": 4,
+        "title": "Water & Sewer",
+        "description": "Complete water and sewer line installation and repair"
+      },
+      {
+        "id": 5,
+        "title": "Storm Drain",
+        "description": "Storm drainage system design and installation"
+      },
+      {
+        "id": 6,
+        "title": "Utility Installation",
+        "description": "Professional utility service installation"
+      }
     ]
   },
   "gallery": {
     "title": "Our Projects",
     "subtitle": "Take a look at some of our recent work",
     "images": [
-      { "id": 1, "url": "https://images.unsplash.com/photo-1590496793907-892f56b5d9af?w=600&q=80", "caption": "Road Construction" },
-      { "id": 2, "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80", "caption": "Site Preparation" },
-      { "id": 3, "url": "https://images.unsplash.com/photo-1597476470008-bd530f940c45?w=600&q=80", "caption": "Heavy Equipment" },
-      { "id": 4, "url": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80", "caption": "Construction Site" },
-      { "id": 5, "url": "https://images.unsplash.com/photo-1621875688671-0d3c47f68c23?w=600&q=80", "caption": "Excavation Work" },
-      { "id": 6, "url": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80", "caption": "Utility Installation" }
+      {
+        "id": 1,
+        "url": "https://images.unsplash.com/photo-1590496793907-892f56b5d9af?w=600&q=80",
+        "caption": "Road Construction"
+      },
+      {
+        "id": 2,
+        "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
+        "caption": "Site Preparation"
+      },
+      {
+        "id": 3,
+        "url": "https://images.unsplash.com/photo-1597476470008-bd530f940c45?w=600&q=80",
+        "caption": "Heavy Equipment"
+      },
+      {
+        "id": 4,
+        "url": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+        "caption": "Construction Site"
+      },
+      {
+        "id": 5,
+        "url": "https://images.unsplash.com/photo-1621875688671-0d3c47f68c23?w=600&q=80",
+        "caption": "Excavation Work"
+      },
+      {
+        "id": 6,
+        "url": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80",
+        "caption": "Utility Installation"
+      }
     ]
   },
   "contact": {
