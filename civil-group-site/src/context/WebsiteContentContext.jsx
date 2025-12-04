@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { Octokit } from '@octokit/rest';
 import { useAuth } from './AuthContext';
 
 const WebsiteContentContext = createContext();
@@ -74,19 +73,57 @@ export const WebsiteContentProvider = ({ children }) => {
 
   const loadContent = async () => {
     try {
-      const docRef = doc(db, 'siteContent', 'main');
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setContent(docSnap.data());
+      // Load content from content.json in public folder
+      const response = await fetch('/content.json');
+      if (response.ok) {
+        const data = await response.json();
+        setContent(data);
       } else {
-        // Initialize with default content
-        await setDoc(docRef, defaultContent);
+        // Use default content if file doesn't exist
+        setContent(defaultContent);
       }
     } catch (error) {
       console.error('Error loading content:', error);
+      setContent(defaultContent);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const commitToGitHub = async (newContent, commitMessage) => {
+    try {
+      const octokit = new Octokit({
+        auth: import.meta.env.VITE_GITHUB_TOKEN
+      });
+
+      const owner = import.meta.env.VITE_GITHUB_OWNER;
+      const repo = import.meta.env.VITE_GITHUB_REPO;
+      const path = 'civil-group-site/public/content.json';
+      const branch = 'master';
+
+      // Get the current file to get its SHA
+      const { data: currentFile } = await octokit.repos.getContent({
+        owner,
+        repo,
+        path,
+        ref: branch
+      });
+
+      // Update the file
+      await octokit.repos.createOrUpdateFileContents({
+        owner,
+        repo,
+        path,
+        message: commitMessage,
+        content: btoa(JSON.stringify(newContent, null, 2)),
+        sha: currentFile.sha,
+        branch
+      });
+
+      return { success: true };
+    } catch (error) {
+      console.error('Error committing to GitHub:', error);
+      return { success: false, error: error.message };
     }
   };
 
@@ -108,11 +145,11 @@ export const WebsiteContentProvider = ({ children }) => {
 
       setContent(newContent);
 
-      // Save to Firestore
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      // Commit to GitHub
+      const commitMessage = `Update ${section}.${field} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error updating content:', error);
       return { success: false, error: error.message };
@@ -130,10 +167,10 @@ export const WebsiteContentProvider = ({ children }) => {
 
       setContent(newContent);
 
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      const commitMessage = `Add service: ${newService.title} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error adding service:', error);
       return { success: false, error: error.message };
@@ -143,14 +180,15 @@ export const WebsiteContentProvider = ({ children }) => {
   const deleteServiceItem = async (serviceId) => {
     try {
       const newContent = { ...content };
+      const service = newContent.services.items.find(s => s.id === serviceId);
       newContent.services.items = newContent.services.items.filter(s => s.id !== serviceId);
 
       setContent(newContent);
 
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      const commitMessage = `Delete service: ${service?.title || serviceId} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error deleting service:', error);
       return { success: false, error: error.message };
@@ -168,10 +206,10 @@ export const WebsiteContentProvider = ({ children }) => {
 
       setContent(newContent);
 
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      const commitMessage = `Add gallery image: ${newImage.caption} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error adding gallery image:', error);
       return { success: false, error: error.message };
@@ -181,14 +219,15 @@ export const WebsiteContentProvider = ({ children }) => {
   const deleteGalleryImage = async (imageId) => {
     try {
       const newContent = { ...content };
+      const image = newContent.gallery.images.find(img => img.id === imageId);
       newContent.gallery.images = newContent.gallery.images.filter(img => img.id !== imageId);
 
       setContent(newContent);
 
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      const commitMessage = `Delete gallery image: ${image?.caption || imageId} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error deleting gallery image:', error);
       return { success: false, error: error.message };
@@ -208,10 +247,10 @@ export const WebsiteContentProvider = ({ children }) => {
 
       setContent(newContent);
 
-      const docRef = doc(db, 'siteContent', 'main');
-      await setDoc(docRef, newContent);
+      const commitMessage = `Update gallery image: ${updates.caption || imageId} via admin panel`;
+      const result = await commitToGitHub(newContent, commitMessage);
 
-      return { success: true };
+      return result;
     } catch (error) {
       console.error('Error updating gallery image:', error);
       return { success: false, error: error.message };
