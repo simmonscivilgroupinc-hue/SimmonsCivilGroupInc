@@ -25,6 +25,10 @@ const ModernGallery = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  // Calculate if we have enough slides for loop mode
+  const imageCount = content.gallery.images.length;
+  const hasEnoughForLoop = imageCount >= 3;
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -191,53 +195,47 @@ const ModernGallery = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, EffectCoverflow, EffectCreative]}
+            modules={[Navigation, Pagination, Autoplay]}
             effect="slide"
             grabCursor={true}
-            centeredSlides={true}
+            centeredSlides={false}
             slidesPerView={1}
-            loop={true}
-            loopAdditionalSlides={2}
-            watchSlidesProgress={true}
-            preloadImages={true}
-            lazy={{
-              loadPrevNext: true,
-              loadPrevNextAmount: 2,
-            }}
+            slidesPerGroup={1}
+            loop={hasEnoughForLoop}
+            loopedSlides={Math.max(imageCount, 3)}
+            slideToClickedSlide={false}
+            resistance={true}
+            resistanceRatio={0}
             pagination={{
               clickable: true,
-              dynamicBullets: true,
+              dynamicBullets: false,
             }}
             navigation={true}
-            autoplay={{
+            autoplay={hasEnoughForLoop ? {
               delay: 4000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
-            }}
+            } : false}
             speed={600}
             spaceBetween={20}
             breakpoints={{
               640: {
                 slidesPerView: 1,
+                slidesPerGroup: 1,
                 spaceBetween: 20,
-                effect: 'slide',
+                centeredSlides: false,
               },
               768: {
                 slidesPerView: 2,
-                spaceBetween: 15,
-                effect: 'slide',
+                slidesPerGroup: 1,
+                spaceBetween: 25,
+                centeredSlides: false,
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 0,
-                effect: 'coverflow',
-                coverflowEffect: {
-                  rotate: 30,
-                  stretch: 10,
-                  depth: 150,
-                  modifier: 1,
-                  slideShadows: true,
-                },
+                slidesPerGroup: 1,
+                spaceBetween: 30,
+                centeredSlides: false,
               },
             }}
             className="gallery-swiper"
