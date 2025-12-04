@@ -69,6 +69,7 @@ const ModernGallery = () => {
         setShowAddModal(false);
         setNewImageUrl('');
         setNewImageCaption('');
+        alert('✅ Image added successfully!\n\nYour changes have been committed to the repository. It may take up to 30 seconds for the changes to appear on the live site.');
       } else {
         alert('Failed to add image: ' + result.error);
       }
@@ -114,6 +115,7 @@ const ModernGallery = () => {
                 setNewImageUrl('');
                 setNewImageCaption('');
                 setImageFile(null);
+                alert('✅ Image added successfully!\n\nYour changes have been committed to the repository. It may take up to 30 seconds for the changes to appear on the live site.');
               } else {
                 alert('Failed to add image: ' + result.error);
               }
@@ -142,7 +144,9 @@ const ModernGallery = () => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
 
     const result = await deleteGalleryImage(imageId);
-    if (!result.success) {
+    if (result.success) {
+      alert('✅ Image deleted successfully!\n\nYour changes have been committed to the repository. It may take up to 30 seconds for the changes to appear on the live site.');
+    } else {
       alert('Failed to delete image: ' + result.error);
     }
   };
@@ -160,6 +164,7 @@ const ModernGallery = () => {
       setShowEditModal(false);
       setSelectedImage(null);
       setNewImageCaption('');
+      alert('✅ Caption updated successfully!\n\nYour changes have been committed to the repository. It may take up to 30 seconds for the changes to appear on the live site.');
     } else {
       alert('Failed to update caption: ' + result.error);
     }

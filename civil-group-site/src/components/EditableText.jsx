@@ -44,6 +44,7 @@ const EditableText = ({ section, field, as = 'p', className = '', multiline = fa
 
     if (result.success) {
       setIsEditing(false);
+      alert('✅ Changes saved successfully!\n\nYour changes have been committed to the repository. It may take up to 30 seconds for the changes to appear on the live site.');
     } else {
       alert('Failed to save: ' + result.error);
     }
