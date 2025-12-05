@@ -231,25 +231,40 @@
 /* Swiper Custom Styles */
 .gallery-swiper .swiper-button-next,
 .gallery-swiper .swiper-button-prev {
-  background: white;
-  width: 60px;
-  height: 60px;
+  background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 40px rgba(124, 179, 66, 0.35);
   transition: all 0.3s;
+  border: 3px solid white;
 }
 
 .gallery-swiper .swiper-button-next:after,
 .gallery-swiper .swiper-button-prev:after {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
-  color: #7CB342;
+  color: white;
+}
+
+.gallery-swiper .swiper-button-next {
+  right: -80px;
+}
+
+.gallery-swiper .swiper-button-prev {
+  left: -80px;
 }
 
 .gallery-swiper .swiper-button-next:hover,
 .gallery-swiper .swiper-button-prev:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  transform: scale(1.15);
+  box-shadow: 0 15px 50px rgba(124, 179, 66, 0.5);
+  background: linear-gradient(135deg, #8DC653 0%, #669F3F 100%);
+}
+
+.gallery-swiper .swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .gallery-swiper .swiper-pagination-bullet {
@@ -522,19 +537,20 @@
   .gallery-swiper .swiper-button-prev {
     width: 50px;
     height: 50px;
+    border: 2px solid white;
   }
 
   .gallery-swiper .swiper-button-next:after,
   .gallery-swiper .swiper-button-prev:after {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .gallery-swiper .swiper-button-next {
-    right: 5px;
+    right: 10px;
   }
 
   .gallery-swiper .swiper-button-prev {
-    left: 5px;
+    left: 10px;
   }
 
   .add-image-btn {
@@ -593,19 +609,20 @@
   .gallery-swiper .swiper-button-prev {
     width: 45px;
     height: 45px;
+    border: 2px solid white;
   }
 
   .gallery-swiper .swiper-button-next:after,
   .gallery-swiper .swiper-button-prev:after {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .gallery-swiper .swiper-button-next {
-    right: 2px;
+    right: 5px;
   }
 
   .gallery-swiper .swiper-button-prev {
-    left: 2px;
+    left: 5px;
   }
 
   .premium-modal {
