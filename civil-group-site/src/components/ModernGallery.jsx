@@ -176,9 +176,9 @@ const ModernGallery = () => {
       <div className="gallery-container">
         <motion.div
           className="gallery-header"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
         >
           <EditableText section="gallery" field="title" as="h2" className="gallery-title">
             {content.gallery.title}
@@ -190,9 +190,9 @@ const ModernGallery = () => {
 
         <motion.div
           className="gallery-carousel-wrapper"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : {}}
+          transition={{ duration: 0.3 }}
         >
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}

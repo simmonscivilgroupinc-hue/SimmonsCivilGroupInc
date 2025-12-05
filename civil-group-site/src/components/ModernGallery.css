@@ -248,11 +248,11 @@
 }
 
 .gallery-swiper .swiper-button-next {
-  right: -80px;
+  right: 20px;
 }
 
 .gallery-swiper .swiper-button-prev {
-  left: -80px;
+  left: 20px;
 }
 
 .gallery-swiper .swiper-button-next:hover,
