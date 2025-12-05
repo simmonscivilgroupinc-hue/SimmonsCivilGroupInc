@@ -275,7 +275,11 @@ const ModernHome = () => {
           </motion.div>
 
           <div className="services-grid">
-            {content.services.items.map((service, index) => (
+            {content.services.items.map((service, index) => {
+              // Icon mapping for each service
+              const serviceIcons = ['🚰', '💧', '⛈️', '🏗️'];
+
+              return (
               <motion.div
                 key={service.id}
                 className="service-card"
@@ -295,12 +299,12 @@ const ModernHome = () => {
                 }}
               >
                 <motion.div
-                  className="service-number"
+                  className="service-icon"
                   initial={{ scale: 0, rotate: -180 }}
                   animate={visibleSections.services ? { scale: 1, rotate: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1, type: "spring" }}
                 >
-                  {String(index + 1).padStart(2, '0')}
+                  {serviceIcons[index]}
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -338,7 +342,8 @@ const ModernHome = () => {
                   transition={{ duration: 0.4 }}
                 />
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
