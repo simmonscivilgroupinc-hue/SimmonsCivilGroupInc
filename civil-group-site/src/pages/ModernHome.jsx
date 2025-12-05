@@ -306,7 +306,15 @@ const ModernHome = () => {
                   animate={visibleSections.services ? { scale: 1, rotate: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1, type: "spring" }}
                 >
-                  <FontAwesomeIcon icon={serviceIcons[index]} />
+                  {index === 3 ? (
+                    <img
+                      src="/images/bulldozer-construction-machine-silhouette-by-Vexels.png"
+                      alt="Bulldozer"
+                      className="service-custom-icon"
+                    />
+                  ) : (
+                    <FontAwesomeIcon icon={serviceIcons[index]} />
+                  )}
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}

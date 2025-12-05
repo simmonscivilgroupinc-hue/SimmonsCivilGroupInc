@@ -257,6 +257,12 @@
   filter: drop-shadow(0 4px 12px rgba(124, 179, 66, 0.3));
 }
 
+.service-custom-icon {
+  height: 3.5rem;
+  width: auto;
+  filter: brightness(0) saturate(100%) invert(59%) sepia(52%) saturate(449%) hue-rotate(42deg) brightness(94%) contrast(85%);
+}
+
 .service-title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -508,6 +514,10 @@
 
   .service-icon {
     font-size: 3rem;
+  }
+
+  .service-custom-icon {
+    height: 3rem;
   }
 
   .service-title {
