@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useWebsiteContent } from '../context/WebsiteContentContext';
+import RichTextEditor from './RichTextEditor';
 import './EditableText.css';
 
 const EditableText = ({ section, field, as = 'p', className = '', multiline = false, children }) => {
@@ -64,27 +65,28 @@ const EditableText = ({ section, field, as = 'p', className = '', multiline = fa
   };
 
   if (isEditing) {
+    if (multiline) {
+      return (
+        <RichTextEditor
+          value={editValue}
+          onChange={setEditValue}
+          onSave={handleSave}
+          onCancel={handleCancel}
+          saving={saving}
+        />
+      );
+    }
+
     return (
       <div className="editable-text-editor">
-        {multiline ? (
-          <textarea
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={`editable-textarea ${className}`}
-            rows={5}
-            autoFocus
-          />
-        ) : (
-          <input
-            type="text"
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={`editable-input ${className}`}
-            autoFocus
-          />
-        )}
+        <input
+          type="text"
+          value={editValue}
+          onChange={(e) => setEditValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className={`editable-input ${className}`}
+          autoFocus
+        />
         <div className="editable-actions">
           <button onClick={handleSave} disabled={saving} className="save-btn">
             {saving ? 'Saving...' : 'Save'}
@@ -97,13 +99,17 @@ const EditableText = ({ section, field, as = 'p', className = '', multiline = fa
     );
   }
 
+  // Check if content contains HTML tags
+  const hasHtml = currentValue && typeof currentValue === 'string' && currentValue.includes('<');
+
   return (
     <Component
       className={`${className} ${editMode ? 'editable-text' : ''}`}
       onClick={handleClick}
       title={editMode ? 'Click to edit' : ''}
+      {...(hasHtml ? { dangerouslySetInnerHTML: { __html: currentValue } } : {})}
     >
-      {currentValue}
+      {hasHtml ? undefined : currentValue}
     </Component>
   );
 };
