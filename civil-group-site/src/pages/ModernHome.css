@@ -250,6 +250,10 @@
   font-size: 3.5rem;
   margin-bottom: 1rem;
   line-height: 1;
+  background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   filter: drop-shadow(0 4px 12px rgba(124, 179, 66, 0.3));
 }
 
