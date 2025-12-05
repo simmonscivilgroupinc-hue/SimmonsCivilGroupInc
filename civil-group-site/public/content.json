@@ -17,22 +17,22 @@
       {
         "id": 1,
         "title": "Sewer",
-        "description": "Installing and repairing sewer mains, laterals, and manholes\n\nSetting precast structures, risers, and ductile iron or PVC pipe systems\n\nProviding emergency repairs and system maintenance to keep flows moving properly"
+        "description": "<ul><li>Installing and repairing sewer mains, laterals, and manholes</li></ul><ul><li>Setting precast structures, risers, and ductile iron or PVC pipe systems</li><li>Providing emergency repairs and system maintenance to keep flows moving properly</li></ul>"
       },
       {
         "id": 2,
         "title": "Water ",
-        "description": "Installing and repairing water mains, service lines, and connections\n\nSetting valves, hydrants, meters, and essential water system components\n\nPerforming emergency fixes and system upgrades to keep water flowing safely"
+        "description": "<ul><li>Installing and repairing water mains, service lines, and connections</li></ul><ul><li>Setting valves, hydrants, meters, and essential water system components</li></ul><ul><li>Performing emergency fixes and system upgrades to keep water flowing safely</li></ul>"
       },
       {
         "id": 3,
         "title": "Storm Water",
-        "description": "Installing and repairing drainage pipes, basins, and structures\n\nManaging runoff with swales, flares, and grading for proper flow\n\nMaintaining stormwater systems to prevent flooding and erosion"
+        "description": "<ul><li><span style=\"font-family: inherit; font-size: inherit;\">Installing and repairing drainage pipes, basins, and structures</span></li><li>Managing runoff with swales, flares, and grading for proper flow</li><li>Maintaining stormwater systems to prevent flooding and erosion</li></ul>"
       },
       {
         "id": 4,
         "title": "Grading",
-        "description": "Cutting, filling, and leveling land to proper elevations\n\nShaping terrain for drainage and site readiness\n\nPreparing stable foundations for construction and utilities"
+        "description": "<ul><li>Cutting, filling, and leveling land to proper elevations</li></ul><ul><li>Shaping terrain for drainage and site readiness</li></ul><ul><li>Preparing stable foundations for construction and utilities</li></ul>"
       }
     ]
   },
