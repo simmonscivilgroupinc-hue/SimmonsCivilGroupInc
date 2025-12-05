@@ -349,7 +349,7 @@ const ModernHome = () => {
                   {isSubmitting ? 'Sending...' : 'Send Message →'}
                 </motion.button>
               </form>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
