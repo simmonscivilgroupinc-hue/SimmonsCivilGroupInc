@@ -2,12 +2,12 @@
   "hero": {
     "title": "Welcome to Simmons Civil Group Inc",
     "subtitle": "Quality Construction Services You Can Trust",
-    "backgroundImage": "https://i.ibb.co/ym5g3rs2/f481f4ac1e4e.jpg"
+    "backgroundImage": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1920&q=80"
   },
   "about": {
     "title": "About Us",
-    "subtitle": "10+ Years of Excellence",
-    "text1": "Simmons Civil Group Inc has been providing top-quality construction and utility services for over 10 years. Our commitment to excellence, safety, and client satisfaction sets us apart in the industry!",
+    "subtitle": "25+ Years of Excellence",
+    "text1": "Simmons Civil Group Inc has been providing top-quality construction and utility services for over 25 years. Our commitment to excellence, safety, and client satisfaction sets us apart in the industry!",
     "text2": "We pride ourselves on building lasting relationships with our clients through reliable service, quality workmanship, and attention to detail on every project.",
     "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
   },
@@ -17,7 +17,7 @@
       {
         "id": 1,
         "title": "Grading",
-        "description": "-Professional land grading and site preparation services.\n-Excavation and earthwork for proper drainage and elevation control.\n-Slope stabilization and contour grading to support long-term site stability."
+        "description": "Professional land grading and site preparation services"
       },
       {
         "id": 2,
@@ -31,8 +31,8 @@
       },
       {
         "id": 4,
-        "title": "Utilities",
-        "description": "- City water and sewer line  hookups.                                    \n- Stormwater drainage systems.                                                                    \n- Planned service installs and urgent repair calls."
+        "title": "Utility Installation",
+        "description": "Water and sewer line installs, repairs, and connections\n\nStormwater systems, drainage work, and structures\n\nUtility site prep, excavation, and emergency service calls"
       }
     ]
   },
@@ -43,22 +43,12 @@
       {
         "id": 2,
         "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
-        "caption": "Site Preparation"
+        "caption": "Pump Stations"
       },
       {
-        "id": 4,
-        "url": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
-        "caption": "Construction Site"
-      },
-      {
-        "id": 6,
-        "url": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80",
-        "caption": "Utility Installation"
-      },
-      {
-        "id": 7,
-        "url": "https://i.ibb.co/211d9p4M/fc3468e5cdfd.jpg",
-        "caption": "test"
+        "id": 8,
+        "url": "https://i.ibb.co/NdQNTY63/1f63b0d683af.jpg",
+        "caption": "Storm Water Pump Station Rehab. Consisting of installing a new pump, grading to proper elevations, installed a well-built riser for wetwell and adding a concrete flair for drainage."
       }
     ]
   },
