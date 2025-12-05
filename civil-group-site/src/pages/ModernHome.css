@@ -255,6 +255,10 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 4px 12px rgba(124, 179, 66, 0.3));
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .service-custom-icon {
@@ -514,6 +518,7 @@
 
   .service-icon {
     font-size: 3rem;
+    min-height: 4rem;
   }
 
   .service-custom-icon {
