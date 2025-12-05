@@ -36,7 +36,7 @@ const ModernGallery = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
 
     const section = document.getElementById('gallery');
@@ -212,12 +212,15 @@ const ModernGallery = () => {
             }}
             navigation={true}
             autoplay={hasEnoughForLoop ? {
-              delay: 4000,
+              delay: 5000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             } : false}
-            speed={600}
+            speed={400}
             spaceBetween={20}
+            watchSlidesProgress={false}
+            preloadImages={false}
+            lazy={true}
             breakpoints={{
               640: {
                 slidesPerView: 1,
@@ -246,6 +249,7 @@ const ModernGallery = () => {
                   <img
                     src={image.url}
                     alt={image.caption}
+                    loading="lazy"
                     onClick={() => !editMode && setLightboxImage(image)}
                   />
                   <div className="slide-caption">
