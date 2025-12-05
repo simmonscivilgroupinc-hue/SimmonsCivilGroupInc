@@ -277,7 +277,7 @@ const ModernHome = () => {
           <div className="services-grid">
             {content.services.items.map((service, index) => {
               // Icon mapping for each service
-              const serviceIcons = ['🚰', '💧', '⛈️', '🏗️'];
+              const serviceIcons = ['🔧', '💧', '⛈️', '🚜'];
 
               return (
               <motion.div
