@@ -4,7 +4,7 @@ import { db } from '../firebase/config';
 import { useWebsiteContent } from '../context/WebsiteContentContext';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaucetDrip, faDroplet, faCloudShowersHeavy, faTruckRampBox } from '@fortawesome/free-solid-svg-icons';
+import { faFaucetDrip, faDroplet, faCloudShowersHeavy, faHelmetSafety } from '@fortawesome/free-solid-svg-icons';
 import EditableText from '../components/EditableText';
 import EditableImage from '../components/EditableImage';
 import EditableBackgroundImage from '../components/EditableBackgroundImage';
@@ -278,8 +278,8 @@ const ModernHome = () => {
 
           <div className="services-grid">
             {content.services.items.map((service, index) => {
-              // Icon mapping for each service - Sewer (pipe/faucet), Water (droplet), Storm (heavy rain), Grading (dump truck with ramp)
-              const serviceIcons = [faFaucetDrip, faDroplet, faCloudShowersHeavy, faTruckRampBox];
+              // Icon mapping for each service - Sewer (pipe/faucet), Water (droplet), Storm (heavy rain), Grading (safety helmet/construction)
+              const serviceIcons = [faFaucetDrip, faDroplet, faCloudShowersHeavy, faHelmetSafety];
 
               return (
               <motion.div
