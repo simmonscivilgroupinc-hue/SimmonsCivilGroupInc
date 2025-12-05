@@ -231,20 +231,20 @@
 /* Swiper Custom Styles */
 .gallery-swiper .swiper-button-next,
 .gallery-swiper .swiper-button-prev {
-  background: linear-gradient(135deg, #7CB342 0%, #558B2F 100%);
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  box-shadow: 0 10px 40px rgba(124, 179, 66, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s;
-  border: 3px solid white;
 }
 
 .gallery-swiper .swiper-button-next:after,
 .gallery-swiper .swiper-button-prev:after {
-  font-size: 22px;
-  font-weight: 900;
-  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
 }
 
 .gallery-swiper .swiper-button-next {
@@ -257,9 +257,13 @@
 
 .gallery-swiper .swiper-button-next:hover,
 .gallery-swiper .swiper-button-prev:hover {
-  transform: scale(1.15);
-  box-shadow: 0 15px 50px rgba(124, 179, 66, 0.5);
-  background: linear-gradient(135deg, #8DC653 0%, #669F3F 100%);
+  background: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-swiper .swiper-button-next:hover:after,
+.gallery-swiper .swiper-button-prev:hover:after {
+  color: #7CB342;
 }
 
 .gallery-swiper .swiper-button-disabled {
@@ -535,9 +539,8 @@
 
   .gallery-swiper .swiper-button-next,
   .gallery-swiper .swiper-button-prev {
-    width: 50px;
-    height: 50px;
-    border: 2px solid white;
+    width: 45px;
+    height: 45px;
   }
 
   .gallery-swiper .swiper-button-next:after,
@@ -607,9 +610,8 @@
 
   .gallery-swiper .swiper-button-next,
   .gallery-swiper .swiper-button-prev {
-    width: 45px;
-    height: 45px;
-    border: 2px solid white;
+    width: 40px;
+    height: 40px;
   }
 
   .gallery-swiper .swiper-button-next:after,

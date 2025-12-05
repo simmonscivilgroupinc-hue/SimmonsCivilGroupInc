@@ -174,26 +174,16 @@ const ModernGallery = () => {
   return (
     <section id="gallery" className="modern-gallery">
       <div className="gallery-container">
-        <motion.div
-          className="gallery-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.4 }}
-        >
+        <div className="gallery-header">
           <EditableText section="gallery" field="title" as="h2" className="gallery-title">
             {content.gallery.title}
           </EditableText>
           <EditableText section="gallery" field="subtitle" as="p" className="gallery-subtitle">
             {content.gallery.subtitle}
           </EditableText>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="gallery-carousel-wrapper"
-          initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : {}}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="gallery-carousel-wrapper">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             effect="slide"
@@ -269,7 +259,7 @@ const ModernGallery = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </motion.div>
+        </div>
 
         {editMode && (
           <motion.button
