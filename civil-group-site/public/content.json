@@ -21,18 +21,18 @@
       },
       {
         "id": 2,
-        "title": "Water",
-        "description": "Installing and repairing water mains, service lines, and connections\n\nSetting valves, hydrants, meters, and essential water system components\n\nPerforming emergency fixes and system upgrades to keep water flowing safely"
+        "title": "Water & Sewer",
+        "description": "Complete water and sewer line installation and repair"
       },
       {
         "id": 3,
-        "title": "Storm Drain",
+        "title": "Storm",
         "description": "Installing and repairing drainage pipes, basins, and structures\n\nManaging runoff with swales, flares, and grading for proper flow\n\nMaintaining stormwater systems to prevent flooding and erosion"
       },
       {
         "id": 4,
-        "title": "Utility Installation",
-        "description": "Water and sewer line installs, repairs, and connections\n\nStormwater systems, drainage work, and structures\n\nUtility site prep, excavation, and emergency service calls"
+        "title": "Sewer ",
+        "description": "Installing and repairing sewer mains, laterals, and manholes\n\nSetting precast structures, risers, and ductile iron or PVC pipe systems\n\nProviding emergency repairs and system maintenance to keep flows moving properly"
       }
     ]
   },
