@@ -50,12 +50,12 @@ const defaultContent = {
     title: 'Contact Us',
     subtitle: 'Get In Touch',
     address: '123 Main Street\nYour City, ST 12345',
-    phone: '(910) 782-8325',
+    phone: '(919) 280-9591',
     hours: 'Monday - Friday: 8:00 AM - 5:00 PM'
   },
   navbar: {
     companyName: 'Simmons Civil Group Inc',
-    phone: '(910) 782-8325'
+    phone: '(919) 280-9591'
   }
 };
 
