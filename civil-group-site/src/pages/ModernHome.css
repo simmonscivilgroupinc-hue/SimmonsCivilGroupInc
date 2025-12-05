@@ -258,7 +258,7 @@
 }
 
 .service-custom-icon {
-  height: 4rem;
+  height: 4.5rem;
   width: auto;
   filter: brightness(0);
 }
@@ -517,7 +517,7 @@
   }
 
   .service-custom-icon {
-    height: 3.5rem;
+    height: 4rem;
   }
 
   .service-title {
