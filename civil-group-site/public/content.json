@@ -2,12 +2,12 @@
   "hero": {
     "title": "Welcome to Simmons Civil Group Inc",
     "subtitle": "Quality Construction Services You Can Trust",
-    "backgroundImage": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1920&q=80"
+    "backgroundImage": "https://i.ibb.co/ym5g3rs2/f481f4ac1e4e.jpg"
   },
   "about": {
     "title": "About Us",
-    "subtitle": "25+ Years of Excellence",
-    "text1": "Simmons Civil Group Inc has been providing top-quality construction and utility services for over 25 years. Our commitment to excellence, safety, and client satisfaction sets us apart in the industry!",
+    "subtitle": "10+ Years of Excellence",
+    "text1": "Simmons Civil Group Inc has been providing top-quality construction and utility services for over 10 years. Our commitment to excellence, safety, and client satisfaction sets us apart in the industry!",
     "text2": "We pride ourselves on building lasting relationships with our clients through reliable service, quality workmanship, and attention to detail on every project.",
     "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
   },
@@ -17,7 +17,7 @@
       {
         "id": 1,
         "title": "Grading",
-        "description": "Professional land grading and site preparation services"
+        "description": "-Professional land grading and site preparation services.\n-Excavation and earthwork for proper drainage and elevation control.\n-Slope stabilization and contour grading to support long-term site stability."
       },
       {
         "id": 2,
@@ -31,8 +31,8 @@
       },
       {
         "id": 4,
-        "title": "Utility Installation",
-        "description": "Professional utility service installation"
+        "title": "Utilities",
+        "description": "- City water and sewer line  hookups.                                    \n- Stormwater drainage systems.                                                                    \n- Planned service installs and urgent repair calls."
       }
     ]
   },
@@ -67,7 +67,7 @@
     "subtitle": "Get In Touch",
     "address": "P.O. Box 370\nPine Level, NC 27568",
     "phone": "(919) 280-9591",
-    "hours": "Monday - Friday: 8:00 AM - 5:00 PM"
+    "hours": "Monday - Friday: 9:00 AM - 5:00 PM"
   },
   "navbar": {
     "companyName": "Simmons Civil Group Inc",
