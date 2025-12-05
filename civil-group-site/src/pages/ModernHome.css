@@ -258,9 +258,9 @@
 }
 
 .service-custom-icon {
-  height: 3.5rem;
+  height: 4rem;
   width: auto;
-  filter: brightness(0) saturate(100%) invert(59%) sepia(52%) saturate(449%) hue-rotate(42deg) brightness(94%) contrast(85%);
+  filter: brightness(0);
 }
 
 .service-title {
@@ -517,7 +517,7 @@
   }
 
   .service-custom-icon {
-    height: 3rem;
+    height: 3.5rem;
   }
 
   .service-title {
